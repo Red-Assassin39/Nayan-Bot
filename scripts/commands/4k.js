@@ -13,6 +13,7 @@ module.exports = {
     aliases: ["4k", "upscale"],
     version: "1.0",
     author: "Dipto",
+    prefix: true,
     countDown: 15,
     role: 0,
     description: "Upscale your image.",
