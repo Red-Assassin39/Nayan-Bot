@@ -1,47 +1,68 @@
-module.exports.config = {
-    name: "admin",
-    version: "1.0.0",
-    permission: 0,
-    credits: "nayan",
-    prefix: true,
-    description: "",
-    category: "prefix",
-    usages: "",
-    cooldowns: 5,
-    dependencies: 
-	{
-    "request":"",
-    "fs-extra":"",
-    "axios":""
-  }
+const moment = require('moment-timezone');
+
+module.exports = {
+    config: {
+        name: "info",
+        version: "1.0",
+        countDown: 20,
+        role: 0,
+        author: "dipto",
+        description: "Owner information",
+        category: "owner",
+        guide: "{p}"
+    },
+  onStart: async ({ api, message ,event }) => {
+        try {
+            const botName = "Your Baby";
+            const botPrefix = "!";
+            const authorName = "亗ㅤƊᎥᎮㅤƬᴏㅤ亗";
+            const ownAge = "18";
+            const teamName = "Noobs team";
+      const authorFB = "https://m.me/dipto008";
+          const authorInsta = "@fariasdipto";
+  const link = "https://i.imgur.com/Faxo9ce.jpeg";
+        const now = moment().tz('Asia/Dhaka');
+      const date = now.format('MMMM Do YYYY');
+          const time = now.format('h:mm:ss A');
+            const uptime = process.uptime();
+      const seconds = Math.floor(uptime % 60);
+const minutes = Math.floor((uptime / 60) % 60);
+const hours = Math.floor((uptime / (60 * 60)) % 24);
+const days = Math.floor(uptime / (60 * 60 * 24));
+const uptimeString = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+            const buttons = {
+                inline_keyboard: [
+                    [
+        { text: "Facebook", url: authorFB },
+  { text: "Instagram", url: `https://t.me/${authorInsta}` }
+                    ]
+                ]
+            };
+
+            const caption = `
+• Bot & Owner Info
+╰‣ Bot Name: ${botName}
+╰‣ Bot Prefix: ${botPrefix}
+╰‣ Owner: ${authorName}
+╰‣ Age: ${ownAge}
+╰‣ Facebook: ${authorFB}
+╰‣ Instagram: ${authorInsta}
+╰‣ Date: ${date}
+╰‣ Time: ${time}
+╰‣ Team: ${teamName}
+╰‣ Uptime: ${uptimeString}`;
+
+            const hh = await api.sendPhoto(event.chat.id ,link, {caption: caption, reply_markup: buttons });
+            setTimeout(() => {
+             message.unsend(hh.message_id);
+            }, 40000);
+        } catch (error) {
+            console.error("Error reading config file:", error);
+        }
+    },
+    onChat: async function ({ event, message }) {
+        if (event.body?.toLowerCase() === "info" || event.body?.toLowerCase() === "owner") {
+            this.onStart({ message });
+        }
+    }
 };
-module.exports.run = async function({ api,event,args,client,Users,Threads,__GLOBAL,Currencies }) {
-const axios = global.nodemodule["axios"];
-const request = global.nodemodule["request"];
-const fs = global.nodemodule["fs-extra"];
-const time = process.uptime(),
-		hours = Math.floor(time / (60 * 60)),
-		minutes = Math.floor((time % (60 * 60)) / 60),
-		seconds = Math.floor(time % 60);
-const moment = require("moment-timezone");
-var juswa = moment.tz("Asia/Dhaka").format("『D/MM/YYYY』 【hh:mm:ss】");
-  
-var callback = () => api.sendMessage({body:`
---------------------------------------------
-𝐍𝐚𝐦𝐞       : 𝐌𝐃 𝐑𝐈𝐅𝐀𝐃 𝐇𝐎𝐒𝐒𝐀𝐈𝐍
-𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐤 : 𝐌𝐃 𝐑𝐈𝐅𝐀𝐃 𝐇𝐎𝐒𝐒𝐀𝐈𝐍
-𝐑𝐞𝐥𝐢𝐠𝐢𝐨𝐧   : 𝐈𝐬𝐥𝐚𝐦
-𝐏𝐞𝐫𝐦𝐚𝐧𝐞𝐧𝐭 𝐀𝐝𝐝𝐫𝐞𝐬𝐬: Joypurhat, Rajshashi
-𝐂𝐮𝐫𝐫𝐞𝐧𝐭 𝐀𝐝𝐝𝐫𝐞𝐬𝐬: Joypurhat, Rajshashi
-𝐆𝐞𝐧𝐝𝐞𝐫.   : 𝐌𝐚𝐥𝐞
-𝐀𝐠𝐞           : 𝟏6
-𝐑𝐞𝐥𝐚𝐭𝐢𝐨𝐧𝐬𝐡𝐢𝐩 : 𝐒𝐢𝐧𝐠𝐥𝐞
-𝐖𝐨𝐫𝐤        : 𝐒𝐭𝐮𝐝𝐞𝐧𝐭
-𝐆𝐦𝐚𝐢𝐥       : lagbenadekhabhai
-𝐖𝐡𝐚𝐭𝐬𝐀𝐩𝐩: wa.me/+880169696969
-𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐦  : t.me/Dibonaeta
-𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐤 𝐋𝐢𝐧𝐤 : https://www.facebook.com/red.assassin39`,attachment: fs.createReadStream(__dirname + "/cache/1.png")}, event.threadID, () => 
-    fs.unlinkSync(__dirname + "/cache/1.png"));  
-      return request(encodeURI(`https://graph.facebook.com/red.assassin39/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)).pipe(
-fs.createWriteStream(__dirname+'/cache/1.png')).on('close',() => callback());
-   };
