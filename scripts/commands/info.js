@@ -13,13 +13,13 @@ module.exports = {
     },
   onStart: async ({ api, message ,event }) => {
         try {
-            const botName = "Your Baby";
-            const botPrefix = "!";
-            const authorName = "亗ㅤƊᎥᎮㅤƬᴏㅤ亗";
-            const ownAge = "18";
-            const teamName = "Noobs team";
-      const authorFB = "https://m.me/dipto008";
-          const authorInsta = "@fariasdipto";
+            const botName = "Biral Mama";
+            const botPrefix = "/";
+            const authorName = "MD Rifad Hossain";
+            const ownAge = "16";
+            const teamName = "Assassin39";
+      const authorFB = "https://www.facebook.com/red.assassin39";
+          const authorInsta = "@rifadhossain39";
   const link = "https://i.imgur.com/Faxo9ce.jpeg";
         const now = moment().tz('Asia/Dhaka');
       const date = now.format('MMMM Do YYYY');
